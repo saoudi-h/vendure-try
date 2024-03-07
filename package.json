@@ -15,10 +15,12 @@
     "migration:revert": "ts-node migration revert"
   },
   "dependencies": {
+    "@pinelab/vendure-plugin-order-export": "^1.1.0",
     "@vendure/admin-ui-plugin": "2.1.8",
     "@vendure/asset-server-plugin": "2.1.8",
     "@vendure/core": "2.1.8",
     "@vendure/email-plugin": "2.1.8",
+    "@vendure/ui-devkit": "^2.1.8",
     "better-sqlite3": "9.4.3",
     "dotenv": "16.4.5",
     "typescript": "4.9.5"

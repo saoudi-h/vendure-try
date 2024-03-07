@@ -9,6 +9,9 @@ import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import 'dotenv/config';
 import path from 'path';
+import { OrderExportPlugin } from '@pinelab/vendure-plugin-order-export';
+import { compileUiExtensions } from '@vendure/ui-devkit/compiler';
+
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 
@@ -65,6 +68,10 @@ export const config: VendureConfig = {
             // to be set manually to match your production url.
             assetUrlPrefix: IS_DEV ? undefined : 'https://www.my-shop.com/assets/',
         }),
+        OrderExportPlugin.init({
+            // Optionally add your own strategies here
+            exportStrategies: [],
+        }),
         DefaultJobQueuePlugin.init({ useDatabaseForBuffer: true }),
         DefaultSearchPlugin.init({ bufferUpdates: false, indexStockStatus: true }),
         EmailPlugin.init({
@@ -88,6 +95,10 @@ export const config: VendureConfig = {
             adminUiConfig: {
                 apiPort: 3000,
             },
+            app: compileUiExtensions({
+         outputPath: path.join(__dirname, '__admin-ui'),
+         extensions: [OrderExportPlugin.ui],
+      }),
         }),
     ],
 };
